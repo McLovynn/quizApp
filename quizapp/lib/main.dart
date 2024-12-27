@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:quizapp/quizPage.dart';
 
 void main() {
-  runApp(StartPage());
+  runApp(StartApp());
+}
+
+class StartApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: StartPage());
+  }
 }
 
 class StartPage extends StatelessWidget {
@@ -9,18 +17,25 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.blueAccent,
-      appBarTheme: AppBarTheme(
-        color: Colors.blueAccent,
-      )),
-
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
-          title: Text("Quiz"),
-        ),
-        body: Center(child: Text("Willkommen in der Quiz App!")),
-      ),
-    );
+          centerTitle: true,
+            backgroundColor: Colors.white70,
+            title: Text("Quiz", style: TextStyle(color: Colors.teal))),
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Willkommen in der Quiz App!"),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Quizpage()));
+                },
+                child: Text("Quiz starten"))
+          ],
+        )));
   }
+
+// void function1() {}
 }
