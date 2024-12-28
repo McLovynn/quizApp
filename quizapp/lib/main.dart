@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/quizPage.dart';
+import 'package:quizapp/widgets.dart';
+import 'package:quizapp/widgets.dart';
 
 void main() {
   runApp(StartApp());
@@ -18,10 +20,7 @@ class StartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-            backgroundColor: Colors.white70,
-            title: Text("Quiz", style: TextStyle(color: Colors.teal))),
+        appBar: customAppBar("Startseite"),
         body: Center(
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -30,7 +29,7 @@ class StartPage extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Quizpage()));
+                      MaterialPageRoute(builder: (context) => QuizPage()));
                 },
                 child: Text("Quiz starten"))
           ],
