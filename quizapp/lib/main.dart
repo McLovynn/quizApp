@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quizapp/quizPage.dart';
 import 'package:quizapp/widgets.dart';
-import 'package:quizapp/widgets.dart';
 
 void main() {
   runApp(StartApp());
@@ -25,13 +24,18 @@ class StartPage extends StatelessWidget {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Willkommen in der Quiz App!"),
+            Spacer(),
+            Text("Willkommen in der Quiz App!",
+            style: headerTextStyle(),),
+            Spacer(),
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => QuizPage()));
                 },
-                child: Text("Quiz starten"))
+                child: Text("Quiz starten")
+            ),
+            Spacer(flex: 2,),
           ],
         )));
   }
