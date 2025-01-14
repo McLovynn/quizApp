@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/quizPage.dart';
-import 'package:quizapp/widgets.dart';
+import 'package:quizapp/layout/quizPage.dart';
+import 'package:quizapp/layout/widgets.dart';
 
 void main() {
   runApp(StartApp());
 }
 
 class StartApp extends StatelessWidget {
+  const StartApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(home: StartPage());
@@ -14,7 +16,7 @@ class StartApp extends StatelessWidget {
 }
 
 class StartPage extends StatelessWidget {
-  // const StartPage({super.key});
+  const StartPage({super.key});
 
   @override
   Widget build(BuildContext context) {

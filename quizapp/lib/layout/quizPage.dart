@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quizapp/widgets.dart';
+import 'package:quizapp/layout/widgets.dart';
+import 'package:quizapp/logic/questionController.dart';
+import 'package:quizapp/logic/questions.dart';
+import 'package:quizapp/model/quizModel.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 class QuizPage extends StatefulWidget {
@@ -8,8 +11,23 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-
   int currentLevel = 1;
+  late QuizModel currentQuestion;
+  late List<String> answers;
+  late List<int> questionIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    questionIndex = getRandomQuestionIndex(11);
+    loadNewQuestion();
+  }
+
+  loadNewQuestion() {
+    currentQuestion = loadQuestion(questionIndex[currentLevel - 1]);
+    answers = getRandomQuestionList(
+        currentQuestion.wrongAnswers, currentQuestion.correctAnswer);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,25 +46,26 @@ class _QuizPageState extends State<QuizPage> {
               children: [
                 Spacer(),
                 Text(
-                  "Hier steht die Frage",
+                  currentQuestion.question,
                   style: headerTextStyle(),
                   textAlign: TextAlign.center,
                 ),
                 Spacer(),
-                Text("Aktuelles Level",
-                style: normalTextStyle(),
+                Text(
+                  "Aktuelles Level",
+                  style: normalTextStyle(),
                 ),
                 StepProgressIndicator(
                   totalSteps: 10,
                   currentStep: currentLevel,
                   selectedColor: Colors.teal,
-                  unselectedColor: Colors.black,
+                  unselectedColor: Colors.red,
                 ),
                 Spacer(),
-                answerCard("1", context),
-                answerCard("2", context),
-                answerCard("3", context),
-                answerCard("4", context),
+                answerCard(answers[0], context),
+                answerCard(answers[1], context),
+                answerCard(answers[2], context),
+                answerCard(answers[3], context),
                 Spacer(),
               ],
             ),
