@@ -7,18 +7,20 @@ PreferredSizeWidget customAppBar(String title) {
       title: Text(title, style: TextStyle(color: Colors.teal)));
 }
 
-Widget answerCard(String text, BuildContext context) {
+Widget answerCard(String text, BuildContext context, {bool? answer}) {
   return Container(
     height: MediaQuery.of(context).size.width * 0.2,
     width: MediaQuery.of(context).size.width,
     child: Card(
+      color: (answer == null)
+          ? Colors.teal
+          : (answer)
+              ? Colors.green
+              : Colors.red,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(50)
-          )
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(30))),
       elevation: 5,
-      color: Colors.teal,
+      // color: Colors.teal,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
@@ -33,16 +35,10 @@ Widget answerCard(String text, BuildContext context) {
   );
 }
 
-TextStyle headerTextStyle({Color color = Colors.black}){
-  return TextStyle(
-      color: color,
-      fontSize: 24,
-      fontWeight: FontWeight.bold);
+TextStyle headerTextStyle({Color color = Colors.black}) {
+  return TextStyle(color: color, fontSize: 24, fontWeight: FontWeight.bold);
 }
 
-TextStyle normalTextStyle({Color color = Colors.black}){
-  return TextStyle(
-      color: color,
-      fontSize: 16,
-      fontWeight: FontWeight.normal);
+TextStyle normalTextStyle({Color color = Colors.black}) {
+  return TextStyle(color: color, fontSize: 16, fontWeight: FontWeight.normal);
 }

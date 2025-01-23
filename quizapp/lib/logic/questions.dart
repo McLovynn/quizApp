@@ -54,5 +54,5 @@ QuizModel loadQuestion(int questionIndex) {
         "Silber",
         ["Kupfer", "Gold", "Aluminium"]),
   ];
-  return questionList[questionIndex - 1];
+  return questionList[questionIndex];
 }

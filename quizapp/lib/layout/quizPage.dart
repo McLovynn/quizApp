@@ -11,10 +11,12 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  int userPoints = 0;
   int currentLevel = 1;
   late QuizModel currentQuestion;
   late List<String> answers;
   late List<int> questionIndex;
+  List answerValidation = [null, null, null, null];
 
   @override
   void initState() {
@@ -24,9 +26,31 @@ class _QuizPageState extends State<QuizPage> {
   }
 
   loadNewQuestion() {
-    currentQuestion = loadQuestion(questionIndex[currentLevel - 1]);
-    answers = getRandomQuestionList(
-        currentQuestion.wrongAnswers, currentQuestion.correctAnswer);
+    setState(() {
+      currentQuestion = loadQuestion(questionIndex[currentLevel - 1]);
+      answers = getRandomQuestionList(
+          currentQuestion.wrongAnswers, currentQuestion.correctAnswer);
+          answerValidation = [null, null, null, null];
+    });
+  }
+
+  validateAndShowQuestion(int userAnswerIndex) async{
+    setState(() {
+      int correctIndex =
+      getCorrectAnswersIndex(answers, currentQuestion.correctAnswer);
+      answerValidation[correctIndex] = true;
+      if (userAnswerIndex == correctIndex) {
+        userPoints++;
+      } else {
+        answerValidation[userAnswerIndex] = false;
+      }
+    });
+
+    await Future.delayed(Duration(seconds: 2));
+    currentLevel++;
+    if (currentLevel <= 10) {
+      loadNewQuestion();
+    }
   }
 
   @override
@@ -62,10 +86,34 @@ class _QuizPageState extends State<QuizPage> {
                   unselectedColor: Colors.red,
                 ),
                 Spacer(),
-                answerCard(answers[0], context),
-                answerCard(answers[1], context),
-                answerCard(answers[2], context),
-                answerCard(answers[3], context),
+                GestureDetector(
+                  child: answerCard(answers[0], context,
+                      answer: answerValidation[0]),
+                  onTap: () {
+                    validateAndShowQuestion(0);
+                  },
+                ),
+                GestureDetector(
+                  child: answerCard(answers[1], context,
+                      answer: answerValidation[1]),
+                  onTap: () {
+                    validateAndShowQuestion(1);
+                  },
+                ),
+                GestureDetector(
+                  child: answerCard(answers[2], context,
+                      answer: answerValidation[2]),
+                  onTap: () {
+                    validateAndShowQuestion(2);
+                  },
+                ),
+                GestureDetector(
+                  child: answerCard(answers[3], context,
+                      answer: answerValidation[3]),
+                  onTap: () {
+                    validateAndShowQuestion(3);
+                  },
+                ),
                 Spacer(),
               ],
             ),
